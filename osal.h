@@ -2,6 +2,9 @@
 #define _INCLUDE_OSAL_H_
 #include "include/types.h"
 
+#define ALIGN(x,n)           ((x+(size_t)(n-1)) & ~(size_t)(n-1))
+#define WORD_BYTE(x)         (2 * ((x+15) / 16))
+
 typedef void* osal_mutex;
 typedef void* osal_spinlock;
 typedef void* osal_waitevent;
