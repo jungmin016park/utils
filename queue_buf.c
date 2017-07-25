@@ -20,8 +20,6 @@ typedef struct {
   int active_num;
 } QUEUE_BUF_DB_T;
 
-QUEUE_BUF_DB_T *q_debug[QUEUE_BUF_NUM] = {NULL, };
-
 int queue_buf_push_free(void *id, QUEUE_BUF_NODE_T *node)
 {
   QUEUE_BUF_DB_T *this = (QUEUE_BUF_DB_T *)id;
@@ -155,7 +153,6 @@ void *queue_buf_open(QUEUE_BUF_ID_T buf_id, int num, int meta_size, int buf_size
   INIT_LIST_HEAD(&this->active_list);
   this->total_num = num;
   this->buf_id = buf_id;
-  q_debug[buf_id] = this;
 
   for (i = 0; i < num; i++) {
     QUEUE_BUF_LIST_NODE_T *list_node = (QUEUE_BUF_LIST_NODE_T *)osal_zalloc(sizeof(QUEUE_BUF_LIST_NODE_T));
@@ -187,7 +184,6 @@ void queue_buf_close(void *id)
     osal_free(list_node);
   }
 
-  q_debug[this->buf_id] = NULL;
   osal_free(this);
 }
 
